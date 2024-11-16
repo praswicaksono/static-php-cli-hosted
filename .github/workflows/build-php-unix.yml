@@ -26,7 +26,7 @@ jobs:
         run: |
           case "${{ matrix.combination }}" in
             minimal) 
-              echo "EXTENSIONS=ctype,curl,iconv,mbregex,mbstring,opcache,openssl,pcntl,phar,posix,readline,sockets,swoole,tokenizer,xml,zlib,zstd" >> "$GITHUB_OUTPUT"
+              echo "EXTENSIONS=ctype,curl,iconv,mbregex,mbstring,filter,opcache,openssl,pcntl,phar,posix,readline,sockets,swoole,tokenizer,xml,zlib,zstd" >> "$GITHUB_OUTPUT"
               echo "DEPLOY_TARGET=${{ secrets.DEPLOY_SERVER_TARGET_MINIMAL }}" >> "$GITHUB_OUTPUT"
               ;;
             common)  
