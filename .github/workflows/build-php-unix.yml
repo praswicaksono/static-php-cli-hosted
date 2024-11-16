@@ -11,9 +11,6 @@ jobs:
       fail-fast: false
       matrix:
         php-version:
-          - "8.0"
-          - "8.1"
-          - "8.2"
           - "8.3"
         runner:
           - "ubuntu-latest"
@@ -22,8 +19,6 @@ jobs:
           - "macos-14"
         combination:
           - minimal
-          - bulk
-          - common
     steps:
       - name: "Process env string"
         id: process-env
@@ -165,16 +160,6 @@ jobs:
             cp buildroot/build-libraries.json dist/
             echo "# Note\n\nCurrent distribution uses extensions:\n\n${{ steps.process-env.outputs.EXTENSIONS }}\n\nUsing compile command:\n\n  bin/spc build --build-cli --build-micro --build-fpm ${{ steps.process-env.outputs.EXTENSIONS }} --debug --with-upx-pack" > dist/README.txt
           fi
-
-      - name: "Deploy to self-hosted OSS"
-        uses: static-php/upload-s3-action@v1.0.0
-        with:
-          aws_key_id: ${{ secrets.AWS_KEY_ID }}
-          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws_bucket: ${{ secrets.AWS_BUCKET }}
-          source_dir: "dist/"
-          destination_dir: static-php-cli/${{ matrix.combination }}/
-          endpoint: ${{ secrets.AWS_ENDPOINT }}
 
       - name: "Upload Artifact"
         uses: actions/upload-artifact@v4
